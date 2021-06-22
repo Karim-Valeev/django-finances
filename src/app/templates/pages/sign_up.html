@@ -1,0 +1,29 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block content %}
+    <body class="sign">
+    <div class="form-center">
+        <div class="h2 mb-3 font-weight-normal text-center">Wallet</div>
+        <form method="post" class="form-login" action="">
+            {% csrf_token %}
+            <h1 class="h4 mb-3 font-weight-normal text-center">Регистрация</h1>
+            <input name="email" type="email" id="inputEmail" class="form-control first" placeholder="Email" required
+                   autofocus>
+            <input name="name" type="text" id="inputName" class="form-control" placeholder="Имя" required
+                   autofocus>
+            <input name="password1" type="password" id="inputPassword" class="form-control" placeholder="Пароль"
+                   required>
+            <input name="password2" type="password" id="inputPassword2" class="form-control last"
+                   placeholder="Повтор пароля" required>
+            <a href="{% url 'sign_in' %}">Уже зарегестрирован.</a>
+            <div class="alert alert-danger" role="alert">
+                Ошибка 1
+            </div>
+            <div class="alert-danger alert" role="alert">
+                Ошибка 2
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+    </body>
+{% endblock %}
