@@ -24,7 +24,7 @@ class WalletUser(AbstractBaseUser, PermissionsMixin):
     object = UserManager()
 
     email = models.EmailField(unique=True)
-
+    name = models.CharField(max_length=100, null=False, default="Wallet")
     @property
     def is_staff(self):
         return self.is_superuser
