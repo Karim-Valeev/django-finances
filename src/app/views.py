@@ -8,7 +8,10 @@ from app.services import register_user
 
 
 def test_view(request):
-    return render(request, "pages/main.html")
+    if request.user.is_authenticated:
+        return render(request, "pages/main.html")
+    else:
+        return render(request, "pages/unauthorized_main.html")
 
 
 @not_authorized

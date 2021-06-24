@@ -1,0 +1,36 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block header %}
+    <header>
+        <div class="logo">
+            <a href="{% url 'main' %}">
+                <img src="{% static 'img/logo.png' %}" alt="Logo" width="60" height="60"/>
+            </a>
+        </div>
+        <div class="profile">
+            <a href="{% url 'sign_in' %}">Войти</a>
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+    <body>
+
+        <div class="container-un">
+            <div class="wallet">
+                <div class="head-un">
+                    <h1 class="head-text">Welcome to Wallet.</h1>
+                </div>
+
+                <div class="text-un">
+                    <p class="info-text">
+                        Добро пожаловать в Wallet. Приложение поможет вам контролировать свои финансы.
+                        Ежемесячные рассходы , зарплата , точечные затраты и т.п.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </body>
+{% endblock %}

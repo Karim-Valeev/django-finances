@@ -429,3 +429,47 @@ body.main {
 .form-center .form-control:focus {
     z-index: 2;
 }
+
+
+
+.container-un {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.wallet{
+    margin-top: 100px;
+    border-radius: 10px;
+}
+
+.head-un {
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+}
+
+.head-text {
+    margin-top: 0;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.text-un {
+    margin-top: 50px;
+    width: 600px;
+
+}
+
+.info-text {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    font-size: 1.25rem;
+    font-weight: 300;
+}
