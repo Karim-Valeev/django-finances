@@ -12,7 +12,7 @@ def test_view(request):
         return render(request, "pages/main.html")
     else:
         data = get_main_page_data(request.user)
-        return render(request, "pages/unauthorized_main.html")
+        return render(request, "pages/unauthorized_main.html", data)
 
 
 @not_authorized
@@ -54,3 +54,15 @@ def sign_in(request):
 def logout_page(request):
     logout(request)
     return redirect("main")
+
+
+def receipt_view(request):
+    print(request.POST)
+
+
+def income_view(request):
+    print(request.POST)
+
+
+def consumption_view(request):
+    print(request.POST)
