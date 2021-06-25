@@ -19,13 +19,10 @@ class AuthForm(forms.Form):
     password = forms.CharField(required=True)
 
 
-class Note(forms.Form):
-    name = forms.CharField(required=True, max_length=100)
+class NoteForm(forms.Form):
     amount = forms.IntegerField(required=True)
-    income = forms.BooleanField(required=True)
-    input_date = forms.DateTimeField(required=True)
+    date = forms.DateTimeField(required=True)
     description = forms.CharField(required=True, max_length=100)
-    over_date = forms.DateField()
     note_type = forms.CharField(required=True, max_length=100)
 
     def clean(self):

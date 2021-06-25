@@ -3,16 +3,16 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from app.decorators import not_authorized
-from app.forms import RegistrationForm, AuthForm
-from app.services import register_user, get_main_page_data
+from app.forms import RegistrationForm, AuthForm, NoteForm
+from app.services import register_user, get_main_page_data, new_note
 
 
 def test_view(request):
     if request.user.is_authenticated:
-        return render(request, "pages/main.html")
-    else:
         data = get_main_page_data(request.user)
-        return render(request, "pages/unauthorized_main.html", data)
+        return render(request, "pages/main.html", data)
+    else:
+        return render(request, "pages/unauthorized_main.html")
 
 
 @not_authorized
@@ -59,9 +59,17 @@ def logout_page(request):
 def receipt_view(request):
     print(request.POST)
 
-
+@login_required()
 def income_view(request):
-    print(request.POST)
+    form = NoteForm()
+    if request.method == "POST":
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            new_note(form, request.user)
+        else:
+            print(form.errors)
+
+    return redirect('main')
 
 
 def consumption_view(request):

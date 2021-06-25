@@ -4,12 +4,11 @@ from app.models import WalletUser
 
 
 class Note(models.Model):
-    name = models.CharField(max_length=100)
     amount = models.IntegerField()
     receipt = models.ImageField()
     input_date = models.DateTimeField()
     description = models.CharField(max_length=100)
-    over_date = models.DateField()
+    over_date = models.DateField(null=True)
     note_type = models.ForeignKey("NoteType", on_delete=models.SET_DEFAULT, default="прочее")
     user = models.ForeignKey(WalletUser, on_delete=models.CASCADE)
     is_closed = models.BooleanField(blank=True, null=True)
