@@ -1,2 +1,2 @@
-from app.models.user_model import WalletUser , UserManager
-
+from .user_model import WalletUser, UserManager
+from .note import NoteType, Note

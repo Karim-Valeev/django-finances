@@ -22,7 +22,7 @@
     <body>
     <div class="wrapper">
 
-        <div class="banks flex-wrap flex">
+        {% comment %}<div class="banks flex-wrap flex">
 
             <div class="account col-md-4" style="background-color: darkgreen"> {# bank colour #}
                 <img src="{% static 'img/coins.png' %}" alt="Монеты">
@@ -40,21 +40,14 @@
                 </div>
             </div>
             <a href="#" class="btn btn-primary col-md-4"> Добавить банк +</a>
-        </div>
+        </div>{% endcomment %}
         <div class="record-add-container">
             <form method="post" action="" id="add-record-form">
                 <input type="hidden" name="accountId" value="#"/>
                 <div class="form-row">
                     <div class="form-group col-md-2">
-                        <select class="bank-select form-control" name="bankId" required>
-                            <option value="${bank.id}">Sber</option>
-                            <option value="${bank.id}">Tinkoff</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
                         <select class="record-type-select form-control" name="isIncome" required>
                             <option value="True" selected>Доход</option>
-                            <option value="False">Расход</option>
                         </select>
                     </div>
                     <div class="form-group col-md-2">
@@ -90,6 +83,66 @@
                 </div>
             </form>
         </div>
+        <div class="record-add-container">
+            <form method="post" action="" id="add-record-form">
+                <input type="hidden" name="accountId" value="#"/>
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <select class="record-type-select form-control" name="isIncome" required>
+                            <option value="False">Расход</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input class="record-input  form-control" id="record-input" name="sum" type=number
+                               placeholder="100"
+                               min="0"
+                               max="1000000000"
+                               step="0.01"
+                               pattern="([0-9]+\.?[0-9]{1,2})"
+                               required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <select class="category-select form-control" name="categoryId" required>
+                            <option value="" selected>Категория</option>
+                            <option value="" selected>Категория</option>
+                            <option value="" selected>Категория</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="date" class="form-control" id="date" name="date" placeholder="Дата" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="date" class="form-control" id="date" name="date" placeholder="Дата" required>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input class="description  form-control" name="description" type="text"
+                               placeholder="Введите описание" maxlength="100">
+                        <div class="account">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4">
+                        <button type="button" class="add-record btn">Добавить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="record-add-container">
+            <form method="post" action="" id="add-record-form">
+                <div class="form-group col-md-2">
+                    <label for="image_big">Загрузите чек.</label>
+                    <input type="file" required id="image_big" name="bigPicture" accept="image/*"></div>
+                <div class="form-row">
+                    <div class="col-md-4">
+                        <button type="button" class="add-record btn">Добавить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
         <div class="record-list-container">
             <div class="records-list">
                 <div class="table-responsive">
@@ -103,7 +156,6 @@
                                     Категория
                                 </div>
                             </th>
-                            <th scope="col" class="record-account text-center">Банк</th>
                             <th scope="col" class="record-description text-center">Заметка</th>
                             <th scope="col" class="record-sum text-center">Сумма</th>
                             <th scope="col" class="record-date text-right">Дата</th>
@@ -123,7 +175,6 @@
                                     Название категории
                                 </div>
                             </td>
-                            <td class="record-account text-center">Банк</td>
                             <td class="record-description text-center">
                                 Описание
                             </td>
@@ -147,7 +198,6 @@
                                     Название категории
                                 </div>
                             </td>
-                            <td class="record-account text-center">Банк</td>
                             <td class="record-description text-center">
                                 Описание
                             </td>
@@ -172,7 +222,6 @@
                                     Название категории
                                 </div>
                             </td>
-                            <td class="record-account text-center">Банк</td>
                             <td class="record-description text-center">
                                 Описание
                             </td>

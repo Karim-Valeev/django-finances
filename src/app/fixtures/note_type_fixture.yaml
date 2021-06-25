@@ -1,0 +1,78 @@
+- model: app.NoteType
+  pk: 1
+  fields:
+    name: "Заработная плата"
+    income: True
+
+- model: app.NoteType
+  pk: 2
+  fields:
+    name: "Подарок"
+    income: True
+
+- model: app.NoteType
+  pk: 3
+  fields:
+    name: "Стипендия"
+    income: True
+
+- model: app.NoteType
+  pk: 4
+  fields:
+    name: "Пенсия"
+    income: True
+
+- model: app.NoteType
+  pk: 5
+  fields:
+    name: "Инвестиции"
+    income: True
+
+- model: app.NoteType
+  pk: 6
+  fields:
+    name: "Прочее+"
+    income: True
+
+- model: app.NoteType
+  pk: 7
+  fields:
+    name: "Ипотека"
+    income: False
+
+
+- model: app.NoteType
+  pk: 8
+  fields:
+    name: "Кредит"
+    income: False
+
+- model: app.NoteType
+  pk: 9
+  fields:
+    name: "Абонентская плата"
+    income: False
+
+- model: app.NoteType
+  pk: 10
+  fields:
+    name: "Обучение"
+    income: False
+
+- model: app.NoteType
+  pk: 11
+  fields:
+    name: "Отдых"
+    income: False
+
+- model: app.NoteType
+  pk: 12
+  fields:
+    name: "Продукты питания"
+    income: False
+
+- model: app.NoteType
+  pk: 13
+  fields:
+    name: "Прочее-"
+    income: False

@@ -4,13 +4,14 @@ from django.shortcuts import render, redirect
 
 from app.decorators import not_authorized
 from app.forms import RegistrationForm, AuthForm
-from app.services import register_user
+from app.services import register_user, get_main_page_data
 
 
 def test_view(request):
     if request.user.is_authenticated:
         return render(request, "pages/main.html")
     else:
+        data = get_main_page_data(request.user)
         return render(request, "pages/unauthorized_main.html")
 
 
