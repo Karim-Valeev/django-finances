@@ -60,7 +60,7 @@ def receipt_view(request):
     print(request.POST)
 
 @login_required()
-def income_view(request):
+def new_note_view(request):
     form = NoteForm()
     if request.method == "POST":
         form = NoteForm(request.POST)
@@ -68,9 +68,4 @@ def income_view(request):
             new_note(form, request.user)
         else:
             print(form.errors)
-
     return redirect('main')
-
-
-def consumption_view(request):
-    print(request.POST)

@@ -1,5 +1,6 @@
+from .dto import NoteDto
 from .models import WalletUser, NoteType, Note
-
+import operator
 
 def register_user(email, name, password):
     user = WalletUser(email=email, name=name)
@@ -11,8 +12,25 @@ def register_user(email, name, password):
 def get_main_page_data(user):
     note_types_income = NoteType.objects.filter(income=True)
     note_types_consumption = NoteType.objects.filter(income=False)
-    notes = Note.objects.filter(user=user)
-    return {"note_types_income": note_types_income, "note_types_consumption": note_types_consumption, "notes": notes}
+    notes_db = Note.objects.filter(user=user).select_related("note_type")
+    notes_final = []
+    for note in notes_db:
+        notes_final += refresh_note(note)
+    #Отсортировать по дате.
+    return {"note_types_income": note_types_income, "note_types_consumption": note_types_consumption,
+            "notes": notes_final}
+
+
+def refresh_note(note: Note):
+    result = []
+    if note.note_type.constant:
+        dto = NoteDto(note, True)
+        result.append(dto)
+        result+= dto.array_of_paid_notes
+    else:
+        dto = NoteDto(note, False)
+        result.append(dto)
+    return result
 
 
 def new_note(form, user):
