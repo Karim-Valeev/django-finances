@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 
 from app.decorators import not_authorized
 from app.forms import RegistrationForm, AuthForm, NoteForm
-from app.services import register_user, get_main_page_data, new_note, pay_note, delete_note
+from app.services import register_user, get_main_page_data, new_note, pay_note, delete_note, make_all_chart
 
 
 def test_view(request):
@@ -82,3 +82,7 @@ def pay_constant_note(request, pk):
 def delete_note_view(request, pk):
     delete_note(request.user, pk)
     return redirect("main")
+
+@login_required
+def analysis_view(request):
+    make_all_chart(request.user)

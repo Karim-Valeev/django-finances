@@ -19,7 +19,7 @@ def get_main_page_data(user):
     notes_final = []
     for note in notes_db:
         notes_final += refresh_note(note)
-    # Отсортировать по дате.
+    notes_final.sort(key=operator.attrgetter('input_date'),reverse=True)
     return {"note_types_income": note_types_income, "note_types_consumption": note_types_consumption,
             "notes": notes_final}
 
@@ -55,3 +55,6 @@ def delete_note(user, pk):
     note = Note.objects.filter(id=pk).select_related("user")[0]
     if note.user == user:
         note.delete()
+
+def make_all_chart(user):
+    pass
