@@ -165,16 +165,16 @@
                         <tbody>
                         {% for note in notes %}
                             <tr style="
-                                    {% if  note.note_model.note_type.constant and not note.note_model.note_type.income and not note.is_this_month_paid %}
+                                    {% if  note.note_type.constant and not note.note_type.income and not note.is_this_month_paid %}
                                         background-color: indianred">
-                                    {% elif note.note_model.note_type.constant and not note.note_model.note_type.income and  note.is_this_month_paid %}
+                                    {% elif note.note_type.constant and not note.note_type.income and  note.is_this_month_paid %}
                                         background-color: lawngreen">
                                     {% else %}
                                         ">
                                     {% endif %}
                             <td class="edit-icon">
-                                {% if note.note_model.note_type.constant and not note.note_model.note_type.income and not note.is_this_month_paid %}
-                                    <a href="#"><i class="fas fa-check"></i></a>
+                                {% if note.note_type.constant and not note.note_type.income and not note.is_this_month_paid %}
+                                    <a href="{% url 'pay' note.id %}"><i class="fas fa-check"></i></a>
                                 {% endif %}
                             </td>
                             <td>
@@ -182,18 +182,18 @@
                                     <div class="record-icon"><i class="fas ${record.category.iconName} mr-4"
                                                                 style="color: darkred" {# цвет категории #}></i>
                                     </div>
-                                    {{ note.note_model.note_type.name }}
+                                    {{ note.note_type.name }}
                                 </div>
                             </td>
                             <td class="record-description text-center">
-                                {{ note.note_model.description }}
+                                {{ note.description }}
                             </td>
-                            <td class="record-sum text-center">{{ note.note_model.amount }}</td>
+                            <td class="record-sum text-center">{{ note.amount }}</td>
                             <td class="record-date text-right">
-                                {{ note.note_model.input_date }}
+                                {{ note.input_date }}
                             </td>
                             <td class="delete-icon">
-                                <a href="#"><i class="fas fa-trash"></i></a>
+                                <a href="{% url 'delete_note' note.id %}"><i class="fas fa-trash"></i></a>
                             </td>
                             </tr>
                         {% endfor %}

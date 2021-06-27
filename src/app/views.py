@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 
 from app.decorators import not_authorized
 from app.forms import RegistrationForm, AuthForm, NoteForm
-from app.services import register_user, get_main_page_data, new_note
+from app.services import register_user, get_main_page_data, new_note, pay_note, delete_note
 
 
 def test_view(request):
@@ -59,7 +59,8 @@ def logout_page(request):
 def receipt_view(request):
     print(request.POST)
 
-@login_required()
+
+@login_required
 def new_note_view(request):
     form = NoteForm()
     if request.method == "POST":
@@ -69,3 +70,15 @@ def new_note_view(request):
         else:
             print(form.errors)
     return redirect('main')
+
+
+@login_required
+def pay_constant_note(request, pk):
+    pay_note(request.user, pk)
+    return redirect("main")
+
+
+@login_required
+def delete_note_view(request, pk):
+    delete_note(request.user, pk)
+    return redirect("main")

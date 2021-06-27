@@ -1,6 +1,9 @@
+import datetime
+
 from .dto import NoteDto
-from .models import WalletUser, NoteType, Note
+from .models import WalletUser, NoteType, Note, NotePaid
 import operator
+
 
 def register_user(email, name, password):
     user = WalletUser(email=email, name=name)
@@ -16,7 +19,7 @@ def get_main_page_data(user):
     notes_final = []
     for note in notes_db:
         notes_final += refresh_note(note)
-    #Отсортировать по дате.
+    # Отсортировать по дате.
     return {"note_types_income": note_types_income, "note_types_consumption": note_types_consumption,
             "notes": notes_final}
 
@@ -26,7 +29,7 @@ def refresh_note(note: Note):
     if note.note_type.constant:
         dto = NoteDto(note, True)
         result.append(dto)
-        result+= dto.array_of_paid_notes
+        result += dto.array_of_paid_notes
     else:
         dto = NoteDto(note, False)
         result.append(dto)
@@ -39,3 +42,16 @@ def new_note(form, user):
     note_type = NoteType.objects.get(name=form.cleaned_data['note_type'])
     note.note_type = note_type
     note.save()
+
+
+def pay_note(user, pk):
+    note = Note.objects.filter(id=pk).select_related("user")[0]
+    if note.user == user:
+        paid = NotePaid(note=note, paid_at=datetime.datetime.now())
+        paid.save()
+
+
+def delete_note(user, pk):
+    note = Note.objects.filter(id=pk).select_related("user")[0]
+    if note.user == user:
+        note.delete()
