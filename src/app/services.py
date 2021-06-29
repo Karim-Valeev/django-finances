@@ -6,7 +6,6 @@ import operator
 import plotly.express as px
 import pandas as pd
 from plotly.offline import download_plotlyjs, plot
-import plotly.graph_objs as go
 
 
 def register_user(email, name, password):
