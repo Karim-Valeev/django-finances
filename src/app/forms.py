@@ -30,3 +30,6 @@ class NoteForm(forms.Form):
         if cleaned_data['amount'] <= 0:
             self.add_error("amount", "Сумма должна быть больше 0")
         return cleaned_data
+
+class ReceiptForm(forms.Form):
+    receipt = forms.FileField()

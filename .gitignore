@@ -131,3 +131,4 @@ dmypy.json
 env
 .idea
 GoogleOCR_API.json
+src/receipts

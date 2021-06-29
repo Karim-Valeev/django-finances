@@ -129,14 +129,14 @@
         </div>
 
         <div class="record-add-container">
-            <form method="post" action="{% url 'receipt' %}" id="add-record-form">
+            <form method="post" action="{% url 'receipt' %}" id="add-record-form" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group col-md-2">
-                    <label for="image_big">Загрузите чек.</label>
-                    <input type="file" required id="image_big" name="bigPicture" accept="image/*"></div>
+                    <label for="receipt">Загрузите чек.</label>
+                    <input type="file" required id="receipt" name="receipt" accept="image/*"></div>
                 <div class="form-row">
                     <div class="col-md-4">
-                        <button type="button" class="add-record btn">Добавить</button>
+                        <button type="submit" class="add-record btn">Добавить</button>
                     </div>
                 </div>
             </form>

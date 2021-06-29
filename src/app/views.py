@@ -5,9 +5,9 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
 from app.decorators import not_authorized
-from app.forms import RegistrationForm, AuthForm, NoteForm
+from app.forms import RegistrationForm, AuthForm, NoteForm, ReceiptForm
 from app.services import register_user, get_main_page_data, new_note, pay_note, delete_note, make_all_chart, \
-    make_monthly_chart
+    make_monthly_chart, process_receipt
 
 
 def test_view(request):
@@ -30,7 +30,7 @@ def sign_up(request):
             login(request, user)
             return redirect("main")
 
-        return (request, "pages/sign_up.html", {"form": form})
+        return render(request, "pages/sign_up.html", {"form": form})
 
     return render(request, "pages/sign_up.html")
 
@@ -59,8 +59,13 @@ def logout_page(request):
     return redirect("main")
 
 
+@login_required
 def receipt_view(request):
-    print(request.POST)
+    if request.method == 'POST':
+        form = ReceiptForm(request.POST, request.FILES)
+        if form.is_valid():
+            process_receipt(request.FILES['receipt'], request.user)
+    return redirect("main")
 
 
 @login_required
@@ -85,6 +90,7 @@ def pay_constant_note(request, pk):
 def delete_note_view(request, pk):
     delete_note(request.user, pk)
     return redirect("main")
+
 
 class Analysis(TemplateView, LoginRequiredMixin):
     template_name = "pages/analysis.html"

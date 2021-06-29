@@ -5,7 +5,7 @@ from app.models import WalletUser
 
 class Note(models.Model):
     amount = models.IntegerField()
-    receipt = models.ImageField()
+    receipt = models.ImageField(upload_to="receipts\\", null=True, blank=True)
     input_date = models.DateTimeField()
     description = models.CharField(max_length=100)
     over_date = models.DateField(null=True)

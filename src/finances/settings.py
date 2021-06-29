@@ -13,7 +13,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv, find_dotenv
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'GoogleOCR_API.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'C:\Users\Даня\Gits\finances\GoogleOCR_API.json'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -130,3 +130,8 @@ STATIC_ROOT = 'static'
 AUTH_USER_MODEL = "app.WalletUser"
 
 LOGIN_URL = "/sign_in"
+
+MEDIA_URL = "/receipts/"
+MEDIA_ROOT = "receipts"
+
+GOOGLE_APPLICATION_CREDENTIALS = "GoogleOCR_API.json"

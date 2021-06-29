@@ -50,8 +50,17 @@ def new_note(form, user):
     note.save()
 
 
+def process_receipt(file, user):
+    note_type = NoteType.objects.filter(name="Прочее-")
+    note = Note(input_date=datetime.datetime.now(),
+                receipt=file, note_type=note_type[0], description="Чек", amount=0)
+    note.user = user
+    note.save()
 
-def get_text_from_image(file_name):
+    get_text_from_image(note.receipt.path, note)
+
+
+def get_text_from_image(file_name, note):
     client = vision.ImageAnnotatorClient()
 
     with io.open(file_name, 'rb') as image_file:
@@ -74,10 +83,12 @@ def get_text_from_image(file_name):
             ignore_index=True
         )
 
-    return (df['description'][0])
+    print(df['description'][0])
+    #note.amount = df['description'][0]
+    #note.save()
+    # return (df['description'][0])
 
-  
-  
+
 def pay_note(user, pk):
     note = Note.objects.filter(id=pk).select_related("user")[0]
     if note.user == user:
