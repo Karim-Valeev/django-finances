@@ -15,10 +15,11 @@ from dotenv import load_dotenv, find_dotenv
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'GoogleOCR_API.json'
 
-load_dotenv(find_dotenv(filename=str(BASE_DIR / '.env')))
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(find_dotenv(filename=str(BASE_DIR / '.env')))
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -81,7 +82,7 @@ DATABASES = {
         "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.postgresql_psycopg2"),
         "NAME": os.environ.get("DB_NAME", "finances"),
         "USER": os.environ.get("DB_USER", "postgres"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "root"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "adelka0508"),
         "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
         "PORT": os.environ.get("DB_PORT", "5432"),
     }
