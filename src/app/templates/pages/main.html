@@ -4,14 +4,14 @@
 {% block header %}
     <header>
         <div class="logo">
-            <a href="#">
+            <a href="{% url 'main' %}">
                 <img src="{% static 'img/logo.png' %}" alt="Logo" width="60" height="60"/>
             </a>
         </div>
         <nav class="menu">
-            <a href="#">Wallet</a>
-            <p>1 USD = Рубль</p>
+            <a href="{% url 'main' %}">Wallet</a>
         </nav>
+        <a href="{% url 'analysis' %}">Графики</a>
         <div class="profile">
             <a href="{% url 'logout' %}">Выйти</a>
         </div>

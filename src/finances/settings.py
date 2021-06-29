@@ -128,3 +128,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
 AUTH_USER_MODEL = "app.WalletUser"
+
+LOGIN_URL = "/sign_in"
