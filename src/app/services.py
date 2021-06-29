@@ -1,10 +1,13 @@
+import io
+
+from google.cloud import vision
+import pandas as pd
 import datetime
 
 from .dto import NoteDto
 from .models import WalletUser, NoteType, Note, NotePaid
 import operator
 import plotly.express as px
-import pandas as pd
 from plotly.offline import download_plotlyjs, plot
 
 
@@ -47,6 +50,34 @@ def new_note(form, user):
     note.save()
 
 
+
+def get_text_from_image(file_name):
+    client = vision.ImageAnnotatorClient()
+
+    with io.open(file_name, 'rb') as image_file:
+        content = image_file.read()
+
+    # construct an image instance
+    image = vision.Image(content=content)
+
+    # annotate Image Response
+    response = client.text_detection(image=image, image_context={"language_hints": ["ru"]}, )  # returns TextAnnotation
+    df = pd.DataFrame(columns=['locale', 'description'])
+
+    texts = response.text_annotations
+    for text in texts:
+        df = df.append(
+            dict(
+                locale=text.locale,
+                description=text.description
+            ),
+            ignore_index=True
+        )
+
+    return (df['description'][0])
+
+  
+  
 def pay_note(user, pk):
     note = Note.objects.filter(id=pk).select_related("user")[0]
     if note.user == user:
