@@ -19,6 +19,7 @@ class Note(models.Model):
         verbose_name_plural = "Записи"
 
 
+
 class NotePaid(models.Model):
     note = models.ForeignKey(Note, on_delete=models.CASCADE)
     paid_at = models.DateTimeField()

@@ -5,3 +5,4 @@ psycopg2-binary~=2.8.6
 Pillow==8.1.2
 PyYAML==5.4.1
 plotly==5.0.0
+pandas==1.2.5
