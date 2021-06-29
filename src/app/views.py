@@ -1,10 +1,13 @@
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
+from django.views.generic import TemplateView
 
 from app.decorators import not_authorized
 from app.forms import RegistrationForm, AuthForm, NoteForm
-from app.services import register_user, get_main_page_data, new_note
+from app.services import register_user, get_main_page_data, new_note, pay_note, delete_note, make_all_chart, \
+    make_monthly_chart
 
 
 def test_view(request):
@@ -59,8 +62,9 @@ def logout_page(request):
 def receipt_view(request):
     print(request.POST)
 
-@login_required()
-def income_view(request):
+
+@login_required
+def new_note_view(request):
     form = NoteForm()
     if request.method == "POST":
         form = NoteForm(request.POST)
@@ -68,9 +72,27 @@ def income_view(request):
             new_note(form, request.user)
         else:
             print(form.errors)
-
     return redirect('main')
 
 
-def consumption_view(request):
-    print(request.POST)
+@login_required
+def pay_constant_note(request, pk):
+    pay_note(request.user, pk)
+    return redirect("main")
+
+
+@login_required
+def delete_note_view(request, pk):
+    delete_note(request.user, pk)
+    return redirect("main")
+
+class Analysis(TemplateView, LoginRequiredMixin):
+    template_name = "pages/analysis.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(Analysis, self).get_context_data(**kwargs)
+
+        context['graph_all'] = make_all_chart(self.request.user)
+        context['graph_monthly'] = make_monthly_chart(self.request.user)
+
+        return context

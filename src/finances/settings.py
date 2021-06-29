@@ -13,9 +13,9 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv, find_dotenv
 
-load_dotenv(find_dotenv())
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'GoogleOCR_API.json'
 
+load_dotenv(find_dotenv(filename=str(BASE_DIR / '.env')))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -109,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = os.environ.get("LANGUAGE_CODE", "en-us")
 
 TIME_ZONE = 'UTC'
 
@@ -127,3 +127,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
 AUTH_USER_MODEL = "app.WalletUser"
+
+LOGIN_URL = "/sign_in"

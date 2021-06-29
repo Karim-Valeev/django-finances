@@ -4,14 +4,14 @@
 {% block header %}
     <header>
         <div class="logo">
-            <a href="#">
+            <a href="{% url 'main' %}">
                 <img src="{% static 'img/logo.png' %}" alt="Logo" width="60" height="60"/>
             </a>
         </div>
         <nav class="menu">
-            <a href="#">Wallet</a>
-            <p>1 USD = Рубль</p>
+            <a href="{% url 'main' %}">Wallet</a>
         </nav>
+        <a href="{% url 'analysis' %}">Графики</a>
         <div class="profile">
             <a href="{% url 'logout' %}">Выйти</a>
         </div>
@@ -42,7 +42,7 @@
             <a href="#" class="btn btn-primary col-md-4"> Добавить банк +</a>
         </div>{% endcomment %}
         <div class="record-add-container">
-            <form method="post" action="{% url 'income' %}" id="add-record-form">
+            <form method="post" action="{% url 'new_note' %}" id="add-record-form">
                 {% csrf_token %}
                 <input type="hidden" name="accountId" value="#"/>
                 <div class="form-row">
@@ -85,7 +85,7 @@
             </form>
         </div>
         <div class="record-add-container">
-            <form method="post" action="{% url 'consumption' %}" id="add-record-form">
+            <form method="post" action="{% url 'new_note' %}" id="add-record-form">
                 {% csrf_token %}
                 <input type="hidden" name="accountId" value="#"/>
                 <div class="form-row">
@@ -122,7 +122,7 @@
                 </div>
                 <div class="form-row">
                     <div class="col-md-4">
-                        <button type="button" class="add-record btn">Добавить</button>
+                        <button type="submit" class="add-record btn">Добавить</button>
                     </div>
                 </div>
             </form>
@@ -163,77 +163,40 @@
                         </tr>
                         </thead>
                         <tbody>
-
-                        <tr>
+                        {% for note in notes %}
+                            <tr style="
+                                    {% if  note.note_type.constant and not note.note_type.income and not note.is_this_month_paid %}
+                                        background-color: indianred">
+                                    {% elif note.note_type.constant and not note.note_type.income and  note.is_this_month_paid %}
+                                        background-color: lawngreen">
+                                    {% else %}
+                                        ">
+                                    {% endif %}
                             <td class="edit-icon">
-                                <a href="#"><i class="fas fa-edit"></i></a>
+                                {% if note.note_type.constant and not note.note_type.income and not note.is_this_month_paid %}
+                                    <a href="{% url 'pay' note.id %}"><i class="fas fa-check"></i></a>
+                                {% endif %}
                             </td>
                             <td>
                                 <div class="record-category">
                                     <div class="record-icon"><i class="fas ${record.category.iconName} mr-4"
-                                                                style="color: darkred" {# цвет категории #}></i></div>
-                                    Название категории
+                                                                style="color: darkred" {# цвет категории #}></i>
+                                    </div>
+                                    {{ note.note_type.name }}
                                 </div>
                             </td>
                             <td class="record-description text-center">
-                                Описание
+                                {{ note.description }}
                             </td>
-                            <td class="record-sum text-center">10100</td>
+                            <td class="record-sum text-center">{{ note.amount }}</td>
                             <td class="record-date text-right">
-                                12.01.2001
+                                {{ note.input_date }}
                             </td>
                             <td class="delete-icon">
-                                <a href="#"><i class="fas fa-trash"></i></a>
+                                <a href="{% url 'delete_note' note.id %}"><i class="fas fa-trash"></i></a>
                             </td>
-                        </tr>
-
-                        <tr>
-                            <td class="edit-icon">
-                                <a href="#"><i class="fas fa-edit"></i></a>
-                            </td>
-                            <td>
-                                <div class="record-category">
-                                    <div class="record-icon"><i class="fas ${record.category.iconName} mr-4"
-                                                                style="color: darkred" {# цвет категории #}></i></div>
-                                    Название категории
-                                </div>
-                            </td>
-                            <td class="record-description text-center">
-                                Описание
-                            </td>
-                            <td class="record-sum text-center">10100</td>
-                            <td class="record-date text-right">
-                                12.01.2001
-                            </td>
-                            <td class="delete-icon">
-                                <a href="#"><i class="fas fa-trash"></i></a>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td class="edit-icon">
-                                <a href="#"><i class="fas fa-edit"></i></a>
-                            </td>
-                            <td>
-                                <div class="record-category">
-                                    <div class="record-icon"><i class="fas ${record.category.iconName} mr-4"
-                                                                style="color: darkred" {# цвет категории #}></i></div>
-                                    Название категории
-                                </div>
-                            </td>
-                            <td class="record-description text-center">
-                                Описание
-                            </td>
-                            <td class="record-sum text-center">10100</td>
-                            <td class="record-date text-right">
-                                12.01.2001
-                            </td>
-                            <td class="delete-icon">
-                                <a href="#"><i class="fas fa-trash"></i></a>
-                            </td>
-                        </tr>
-
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
