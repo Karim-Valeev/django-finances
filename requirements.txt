@@ -4,5 +4,6 @@ django-choices~=1.7.1
 psycopg2-binary~=2.8.6
 Pillow==8.1.2
 PyYAML==5.4.1
+google-cloud-vision~=2.3.2
 plotly==5.0.0
 pandas==1.2.5
