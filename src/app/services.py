@@ -1,3 +1,7 @@
+import io
+
+from google.cloud import vision
+import pandas as pd
 from .models import WalletUser, NoteType, Note
 
 
@@ -21,3 +25,29 @@ def new_note(form, user):
     note_type = NoteType.objects.get(name=form.cleaned_data['note_type'])
     note.note_type = note_type
     note.save()
+
+
+def get_text_from_image(file_name):
+    client = vision.ImageAnnotatorClient()
+
+    with io.open(file_name, 'rb') as image_file:
+        content = image_file.read()
+
+    # construct an image instance
+    image = vision.Image(content=content)
+
+    # annotate Image Response
+    response = client.text_detection(image=image, image_context={"language_hints": ["ru"]}, )  # returns TextAnnotation
+    df = pd.DataFrame(columns=['locale', 'description'])
+
+    texts = response.text_annotations
+    for text in texts:
+        df = df.append(
+            dict(
+                locale=text.locale,
+                description=text.description
+            ),
+            ignore_index=True
+        )
+
+    return (df['description'][0])
