@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'finances.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.postgresql_psycopg2"),
-        "NAME": os.environ.get("DB_NAME", "finances"),
-        "USER": os.environ.get("DB_USER", "postgres"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "adelka0508"),
+        "NAME": os.environ.get("DB_NAME", "te"),
+        "USER": os.environ.get("DB_USER", "te"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "te"),
         "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
         "PORT": os.environ.get("DB_PORT", "5432"),
     }
