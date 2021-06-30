@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block header %}
+    <header>
+        <div class="logo">
+            <a href="{% url 'main' %}">
+                <img src="{% static 'img/logo.png' %}" alt="Logo" width="60" height="60"/>
+            </a>
+        </div>
+        <nav class="menu">
+            <a href="{% url 'main' %}">Wallet</a>
+        </nav>
+        <a href="{% url 'analysis' %}">Графики</a>
+        <div class="profile">
+            <a href="{% url 'logout' %}">Выйти</a>
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+<body>
+{% if graph_all %}
+    <div style="width:600;height:500">
+        {{ graph_all|safe }}
+    </div>
+{% endif %}
+
+{% if graph_monthly %}
+    <div style="width:600;height:500">
+        {{ graph_monthly|safe }}
+    </div>
+{% endif %}
+</body>
+{% endblock %}

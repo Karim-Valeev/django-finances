@@ -9,17 +9,17 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-import os
 from pathlib import Path
-
+import os
 from dotenv import load_dotenv, find_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'C:\Users\Даня\Gits\finances\GoogleOCR_API.json'
 
-load_dotenv(find_dotenv(filename=str(BASE_DIR / '.env')))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(find_dotenv(filename=str(BASE_DIR / '.env')))
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -82,7 +82,7 @@ DATABASES = {
         "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.postgresql_psycopg2"),
         "NAME": os.environ.get("DB_NAME", "finances"),
         "USER": os.environ.get("DB_USER", "postgres"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "root"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "adelka0508"),
         "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
         "PORT": os.environ.get("DB_PORT", "5432"),
     }
@@ -128,3 +128,10 @@ STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
 AUTH_USER_MODEL = "app.WalletUser"
+
+LOGIN_URL = "/sign_in"
+
+MEDIA_URL = "/receipts/"
+MEDIA_ROOT = "receipts"
+
+GOOGLE_APPLICATION_CREDENTIALS = "GoogleOCR_API.json"
