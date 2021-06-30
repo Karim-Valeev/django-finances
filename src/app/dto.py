@@ -30,6 +30,8 @@ class NoteDto(object):
                         note_.input_date = note_paid[i].paid_at
                         note_.is_this_month_paid = True
                         self.array_of_paid_notes.append(note_)
+                else:
+                    self.is_this_month_paid = False
             else:
                 now_date = datetime.datetime.now()
                 num_month = (now_date.year - note.input_date.year) * 12 \
