@@ -32,3 +32,6 @@ class FinanceViewTestCases(TestCase):
     #     request.user = self.user
     #     response = CreateCocktail.as_view()(request)
     #     self.assertEqual(response.status_code, 200)
+
+
+
