@@ -5,6 +5,7 @@ from app.models import WalletUser
 
 class Note(models.Model):
     amount = models.IntegerField()
+    # чек
     receipt = models.ImageField(upload_to="receipts\\", null=True, blank=True)
     input_date = models.DateTimeField()
     description = models.CharField(max_length=100)
@@ -17,7 +18,6 @@ class Note(models.Model):
         db_table = "note"
         verbose_name = "Запись"
         verbose_name_plural = "Записи"
-
 
 
 class NotePaid(models.Model):
