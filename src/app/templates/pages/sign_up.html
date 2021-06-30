@@ -15,7 +15,7 @@
                    required>
             <input name="password2" type="password" id="inputPassword2" class="form-control last"
                    placeholder="Повтор пароля" required>
-            <a href="{% url 'sign_in' %}">Уже зарегестрирован.</a>
+            <a href="{% url 'sign_in' %}">Уже зарегистрирован.</a>
             {% if form %}
                 {% for field in form %}
                     {% for error in field.errors %}
