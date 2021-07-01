@@ -1,0 +1,26 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block content %}
+    <body class="sign">
+        <div class="form-center">
+            <div class="h2 mb-3 font-weight-normal text-center">Wallet</div>
+            <form method="post" class="form-login" action="{% url 'end_sign_up' %}">
+                {% csrf_token %}
+                    <h1 class="h4 mb-3 font-weight-normal text-center">Подтверждение электронной почты</h1>
+                <input name="code" type="text" id="inputName" class="form-control" placeholder="6-ти значный код" required
+                       autofocus>
+                <small id="emailHelp" class="form-text text-muted mb-3">Вам на почту был отправлен 6-ти значный код, введите его здесь</small>
+                {% if form %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger" role="alert">
+                                {{ error|escape }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Подтвердить</button>
+            </form>
+        </div>
+    </body>
+{% endblock %}
