@@ -21,7 +21,7 @@ class WalletUser(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     email = models.EmailField(unique=True)
-    name = models.CharField(max_length=100, null=False, default="Wallet")
+    name = models.CharField(max_length=150, null=False, default="Wallet")
     is_email_verified = models.BooleanField(default=False)
 
     @property
