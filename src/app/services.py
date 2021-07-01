@@ -1,5 +1,6 @@
 import io
 
+from django.contrib.auth.hashers import make_password
 from google.cloud import vision
 import pandas as pd
 import datetime
@@ -10,10 +11,25 @@ import operator
 import plotly.express as px
 from plotly.offline import download_plotlyjs, plot
 
+from .models.user_model import UnverifiedUserCode
+
 
 def register_user(email, name, password):
     user = WalletUser(email=email, name=name)
     user.set_password(password)
+    user.save()
+    return user
+
+
+def find_unverified_user(code):
+    user = UnverifiedUserCode.objects.filter(
+        code=make_password(code, salt='karimka')
+    ).select_related('user')[0].user
+    return user
+
+
+def verify_user_email(user: WalletUser):
+    user.is_email_verified = True
     user.save()
     return user
 

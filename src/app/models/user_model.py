@@ -18,10 +18,12 @@ class UserManager(DjangoUserManager):
 
 
 class WalletUser(AbstractBaseUser, PermissionsMixin):
-    object = UserManager()
+    objects = UserManager()
 
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=100, null=False, default="Wallet")
+    is_email_verified = models.BooleanField(default=False)
+
     @property
     def is_staff(self):
         return self.is_superuser
@@ -33,3 +35,14 @@ class WalletUser(AbstractBaseUser, PermissionsMixin):
         db_table = "WalletUser"
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
+
+
+class UnverifiedUserCode(models.Model):
+    user = models.ForeignKey(WalletUser, on_delete=models.CASCADE)
+    code = models.CharField(max_length=100)
+    class Meta:
+        db_table = "unverified_user_code"
+        # verbose_name = "Пользователь"
+        # verbose_name_plural = "Пользователи"
+
+

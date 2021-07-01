@@ -31,5 +31,10 @@ class NoteForm(forms.Form):
             self.add_error("amount", "Сумма должна быть больше 0")
         return cleaned_data
 
+
 class ReceiptForm(forms.Form):
     receipt = forms.FileField()
+
+
+class CodeForm(forms.Form):
+    code = forms.RegexField(required=True, regex=r'^\d{6}$')
