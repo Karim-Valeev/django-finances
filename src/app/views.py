@@ -5,9 +5,9 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
 from app.decorators import not_authorized
-from app.forms import RegistrationForm, AuthForm, NoteForm, ReceiptForm
-from app.services import register_user, get_main_page_data, new_note, pay_note, delete_note, make_all_chart, \
-    make_monthly_chart, process_receipt
+from app.forms import RegistrationForm, AuthForm, NoteForm, ReceiptForm, CodeForm
+from app.services import *
+from app.tasks import send_code
 
 
 def test_view(request):
@@ -19,7 +19,7 @@ def test_view(request):
 
 
 @not_authorized
-def sign_up(request):
+def start_sign_up(request):
     if request.method == "POST":
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -27,12 +27,31 @@ def sign_up(request):
             password = form.cleaned_data['password']
             name = form.cleaned_data['name']
             user = register_user(email, name, password)
-            login(request, user)
-            return redirect("main")
+            send_code.delay(email)
+            return redirect("end_sign_up")
 
-        return render(request, "pages/sign_up.html", {"form": form})
+        return render(request, "pages/start-sign-up.html", {"form": form})
 
-    return render(request, "pages/sign_up.html")
+    return render(request, "pages/start-sign-up.html")
+
+
+@not_authorized
+def end_sign_up(request):
+    form = CodeForm()
+    if request.method == "POST":
+        form = CodeForm(request.POST)
+        if form.is_valid():
+            code = form.cleaned_data['code']
+            unverified_user = find_unverified_user(code)
+            if not unverified_user.is_email_verified:
+                user = verify_user_email(unverified_user)
+                login(request, user)
+                return redirect("main")
+            else:
+                return redirect('sign_in')
+        else:
+            form.add_error("code", "Неправильный формат кода")
+    return render(request, "pages/end-sign-up.html", {'form': form})
 
 
 @not_authorized
@@ -47,8 +66,11 @@ def sign_in(request):
             if user is None:
                 form.add_error("email", "Неправильный логин или пароль")
             else:
-                login(request, user)
-                return redirect("main")
+                if user.is_email_verified:
+                    login(request, user)
+                    return redirect("main")
+                else:
+                    form.add_error("email", "Вы не подтвердили свою почту")
 
     return render(request, "pages/sign_in.html", {"form": form})
 
