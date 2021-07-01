@@ -16,3 +16,4 @@ pre-commit==2.12.1
 celery~=5.0.0
 redis~=3.5.3
 django-redis~=4.12.1
+pytest~=6.2.4
