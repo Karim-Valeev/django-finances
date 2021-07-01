@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'finances.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.postgresql_psycopg2"),
-        "NAME": os.environ.get("DB_NAME", "finances"),
-        "USER": os.environ.get("DB_USER", "postgres"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", "adelka0508"),
+        "NAME": os.environ.get("DB_NAME", "te"),
+        "USER": os.environ.get("DB_USER", "te"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "te"),
         "HOST": os.environ.get("DB_HOST", "127.0.0.1"),
         "PORT": os.environ.get("DB_PORT", "5432"),
     }
@@ -135,3 +135,20 @@ MEDIA_URL = "/receipts/"
 MEDIA_ROOT = "receipts"
 
 GOOGLE_APPLICATION_CREDENTIALS = "GoogleOCR_API.json"
+
+# Sending emails:
+EMAIL_FROM_EMAIL = os.environ.get(
+    "EMAIL_FROM_EMAIL", "django-itis-email-test@yandex.ru"
+)
+EMAIL_FROM_NAME = "Your Finances"
+DEFAULT_FROM_EMAIL = EMAIL_FROM_EMAIL
+
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "uivrdmaovkjstajg")
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.yandex.ru")
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 465))
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", EMAIL_FROM_EMAIL)
+EMAIL_USE_SSL = True
+
+REDIS_CONNECTION = os.environ.get("REDIS_CONNECTION", "redis://localhost:6379/0")
+
+CELERY_BROKER_URL = REDIS_CONNECTION
