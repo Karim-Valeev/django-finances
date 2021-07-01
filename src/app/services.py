@@ -24,6 +24,7 @@ def get_main_page_data(user):
     notes_db = Note.objects.filter(user=user).select_related("note_type")
     notes_final = []
     for note in notes_db:
+        print(note.input_date)
         notes_final += refresh_note(note)
     notes_final.sort(key=operator.attrgetter('input_date'), reverse=True)
     return {"note_types_income": note_types_income, "note_types_consumption": note_types_consumption,
@@ -84,8 +85,8 @@ def get_text_from_image(file_name, note):
         )
 
     print(df['description'][0])
-    #note.amount = df['description'][0]
-    #note.save()
+    # note.amount = df['description'][0]
+    # note.save()
     # return (df['description'][0])
 
 
@@ -136,8 +137,8 @@ def make_monthly_chart(user):
             now_date = datetime.datetime.now()
             num_month = (now_date.year - note.input_date.year) * 12 \
                         + (now_date.month - note.input_date.month)
-            if num_month >= 1:
-                user_note_month.append(note)
+            if num_month <= 1:
+                user_note_month.append(note.id)
         else:
             user_note_month.append(note.id)
 
