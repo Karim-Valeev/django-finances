@@ -2,9 +2,9 @@ from django import forms
 
 
 class RegistrationForm(forms.Form):
-    email = forms.EmailField(required=True)
-    password = forms.CharField(required=True)
-    name = forms.CharField(required=True)
+    email = forms.EmailField(max_length=320, required=True)
+    password = forms.CharField(max_length=50, required=True)
+    name = forms.CharField(max_length=150, required=True)
     password2 = forms.CharField(required=True)
 
     def clean(self):
