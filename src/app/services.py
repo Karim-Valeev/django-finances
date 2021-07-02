@@ -141,7 +141,7 @@ def make_all_chart(user):
     if user_notes:
         return make_chart(user_notes, "За все время.")
     else:
-        return "Ничего нет."
+        return "У вас пока нет доходов и расходов."
 
 
 def make_monthly_chart(user):
@@ -162,4 +162,4 @@ def make_monthly_chart(user):
     if user_notes:
         return make_chart(user_notes, "За месяц")
     else:
-        return "Ничего нет"
+        return "У вас пока нет доходов и расходов в этом месяце."

@@ -17,9 +17,9 @@ def send_code(email):
     code = generate_code()
     UnverifiedUserCode.objects.create(user=user, code=make_password(code, salt='karimka'))
     print(code)
-    email_text = f"Your verification code is: {code}"
+    email_text = f"Ваш код для подтверждения почты: {code}"
     send_mail(
-        "Password dropping",
+        "Подтверждение почты в Wallet",
         email_text,
         settings.DEFAULT_FROM_EMAIL,
         [email],
