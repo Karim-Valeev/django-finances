@@ -13,9 +13,9 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv, find_dotenv
 
-os.chdir('../..')
-path = os.path.abspath(os.path.curdir)
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.join(path, "GoogleOCR_API.json")
+# os.chdir('../..')
+# path = os.path.abspath(os.path.curdir)
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.join(path, "GoogleOCR_API.json")
 # os.chdir(os.path.join(path, '/src/finances'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
