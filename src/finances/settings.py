@@ -22,8 +22,6 @@ from dotenv import load_dotenv, find_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(find_dotenv(filename=str(BASE_DIR / '.env')))
 
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -31,9 +29,10 @@ load_dotenv(find_dotenv(filename=str(BASE_DIR / '.env')))
 SECRET_KEY = 'x_#j@pn8e(6=w_a2(3+1*n$0vemewn*fc2c#h8xkfb8185wvs8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+ENV_DEBUG = os.environ.get("DEBUG", False).lower()
+DEBUG = True if ENV_DEBUG == 'true' else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
