@@ -1,15 +1,9 @@
-from datetime import datetime
-from django.contrib.auth.models import AnonymousUser
-from django.core.files.uploadedfile import SimpleUploadedFile
+import pytest
 from django.test import TestCase, RequestFactory
+from pytest_django.asserts import assertTemplateUsed
 
 from app.models import WalletUser
-from app.models import Note
-from app.models.note import NoteType
-from app.views import sign_in, delete_note_view
-# from barbook_app.views import CreateCocktail
-import pytest
-from pytest_django.asserts import assertTemplateUsed
+from app.views import sign_in
 
 
 class FinanceViewTestCases(TestCase):
